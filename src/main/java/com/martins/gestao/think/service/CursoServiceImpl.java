@@ -1,22 +1,33 @@
 package com.martins.gestao.think.service;
 
-import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
-import com.martins.gestao.think.dao.Dao;
+import com.martins.gestao.think.dao.CursoDao;
 import com.martins.gestao.think.dao.DaoFactory;
 import com.martins.gestao.think.dto.CursoDto;
 
 public class CursoServiceImpl implements CursoService {
-	
 
 	@Override
-	public CursoDto insertCurso(CursoDto cursoDto) {
-		Connection conn = new Dao().getConn();
-		DaoFactory.getCursoDao(conn);
+	public CursoDto insertCurso(CursoDto cursoDto)  {
 		
-		
-		return null;
+		CursoDao cursoDao = DaoFactory.getCursoDao();
+		try {
+			
+			int ultimoCodigo = cursoDao.getUltimoCodigo();
+			ultimoCodigo++;
+			
+			cursoDto.setId(String.valueOf(ultimoCodigo));
+			
+			cursoDao.insertCurso(cursoDto);
+			
+			CursoDto cursoPeloCodigo = cursoDao.getCursoPeloCodigo(cursoDto.getId());
+			
+			return cursoPeloCodigo;
+		} catch (SQLException e) {
+			throw new RuntimeException("inserção não foi sucedida");
+		}
 	}
 
 	@Override

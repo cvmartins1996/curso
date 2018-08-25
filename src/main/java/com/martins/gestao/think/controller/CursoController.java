@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.martins.gestao.think.delegate.BusinessDelegate;
@@ -20,7 +21,12 @@ public class CursoController {
 	private BusinessDelegate businessDelegate = new BusinessDelegate();
 
 	@PostMapping
-	public ResponseEntity<CursoVo> inserir(@RequestBody CursoVo cursoVo) {
+	public ResponseEntity<CursoVo> inserir(@RequestParam String nome, @RequestParam String categoria) {
+		
+		CursoVo cursoVo = new CursoVo();
+		
+		cursoVo.setNome(nome);
+		cursoVo.setCategoria(categoria);
 		
 		CursoVo insertCurso = businessDelegate.insertCurso(cursoVo);
 		
@@ -30,7 +36,7 @@ public class CursoController {
 	@GetMapping
 	public ResponseEntity<CursoVo> consultar(@RequestBody String codigo) {
 		
-		CursoVo cursoVo = businessDelegate.consultarCurso(Long.parseLong(codigo));
+		CursoVo cursoVo = businessDelegate.consultarCurso(codigo);
 		return new ResponseEntity<CursoVo>(cursoVo , HttpStatus.OK);
 	}
 	

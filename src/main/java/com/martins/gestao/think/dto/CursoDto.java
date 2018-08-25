@@ -2,14 +2,14 @@ package com.martins.gestao.think.dto;
 
 public class CursoDto {
 	
-	private Long id;
+	private String id;
 	private String nome;
 	private String categoria;
 	
-	public Long getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(Long id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getNome() {

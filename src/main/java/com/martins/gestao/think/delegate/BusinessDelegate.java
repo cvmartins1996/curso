@@ -11,7 +11,7 @@ public class BusinessDelegate {
 		
 	}
 
-	public CursoVo consultarCurso(Long codigo) {
+	public CursoVo consultarCurso(String codigo) {
 		return new CursoBo().getCursoPeloCodigo(codigo);
 	}
 	

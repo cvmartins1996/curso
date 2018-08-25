@@ -5,9 +5,18 @@ import org.springframework.util.StringUtils;
 public class CursoVo {
 
 	private String nome;
+	private String categoria;
 	
+	public String getCategoria() {
+		return categoria;
+	}
+
+	public void setCategoria(String categoria) {
+		this.categoria = categoria;
+	}
+
 	public String getNome() {
-		validarNome();
+		validarNome(nome);
 		return nome;
 	}
 
@@ -15,9 +24,9 @@ public class CursoVo {
 		this.nome = nome;
 	}
 	
-	void validarNome() {
+	void validarNome(String nome) {
 		if(StringUtils.isEmpty(nome)) {
-			throw new RuntimeException("Nome não pode ser em branco");
+			throw new RuntimeException("Campo não pode ser em branco");
 		}
 	}
 
